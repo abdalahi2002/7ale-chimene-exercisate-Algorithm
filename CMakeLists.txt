@@ -8,4 +8,6 @@ add_executable(Testfilepile main.c
         TestFile.c
         TestFile.h
         ListeDouble.h
-        ListeDouble.c)
+        ListeDouble.c
+        TestTableau.c
+        ListeTableau.h)

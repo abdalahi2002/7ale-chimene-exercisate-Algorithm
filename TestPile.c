@@ -1,7 +1,10 @@
 #include "Test.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <string.h>
+
+
+Liste P2 = NULL;
+Liste P3 = NULL;
 Liste new_pile(void)
 {
     return NULL;
@@ -10,7 +13,7 @@ Liste new_pile(void)
 Bool est_vide(Liste p)
 {
     if(p == NULL){
-        return true;
+        return 1  ;
     }
     return false;
 }
@@ -39,6 +42,7 @@ Liste depiler(Liste p)
     temp=p->suiv;
     free(p);
 
+
     return temp;
 }
 Liste depile_tout(Liste p)
@@ -47,13 +51,14 @@ Liste depile_tout(Liste p)
     while (!est_vide(temp))
         temp= depiler(temp);
 
-    return new_pile();
+    return temp;
 }
 
-void sommet(Liste p)
+int sommet(Liste p)
 {
-    if(!est_vide(p))
-        printf("sommet actuel : %d\n",p->value);
+    if(est_vide(p))
+        return 0;
+    return p->value;
 
 }
 
@@ -70,60 +75,37 @@ void Afficher(Liste p)
     }
     printf("\n");
 }
-
+// Q1 Serie d'exercice
 Liste paire_impaire(Liste l){
-    Liste temp = l;
-    while (temp != NULL){
-        Liste newpile = malloc(sizeof(Pile));
-        if(temp == NULL){
-            printf("erreurs d''allocation memoire\n");
-            exit(1);
-        }
-        newpile->value=temp->value;
-        newpile->suiv=NULL;
-        if(temp->value %2 == 0){
-            // P2 = Empiler(P2,temp->value);
-            newpile->suiv = P2;
-            P2 = newpile;
-        } else{
-           // P3 = Empiler(P3,temp->value);
-            newpile->suiv = P3;
-            P3 = newpile;
-        }
-        temp = temp->suiv;
+    while (l != NULL){
 
+
+        if(l->value %2 == 0){
+            P2 = Empiler(P2,l->value);
+        }
+        else{
+           P3 = Empiler(P3,l->value);
+        }
+        l = depiler(l);
+//        l = l->suiv;
     }
-
-    l = depile_tout(l);
     return l;
 }
 
-
+// Q2 Serie d'exercice
 Liste impairedessouspaire(Liste l){
 
-    Liste temp = l;
-    //Liste precede = NULL;
-    while (temp !=NULL){
-        if(temp->value %2 == 0){
-            P2 = Empiler(P2,temp->value);
-
-        } else{
-            P3 = Empiler(P3,temp->value);
-        }
-        temp=temp->suiv;
-    }
-    l = depile_tout(l);
+    l = paire_impaire(l);
 
     while (P3 != NULL){
         l = Empiler(l,P3->value);
-        P3 = P3->suiv;
+        P3 = depiler(P3);
     }
 
     while (l != NULL){
         P2 = Empiler(P2,l->value);
-        l = l->suiv;
+        l = depiler(l);
     }
-    l = depile_tout(l);
     return l;
 }
 
@@ -143,8 +125,9 @@ void AfficheP_imp(void){
     printf("\n\n");
 }
 
+// Q3 Serie d'exercice
 Liste alternence(Liste l){
-    l = paire_impaire(l);
+    paire_impaire(l);
     while (P2 != NULL && P3 != NULL){
         l = Empiler(l,P2->value);
         //P2 = depiler(P2);
@@ -163,6 +146,92 @@ Liste alternence(Liste l){
         l = Empiler(l,P3->value);
         //P3 = depiler(P3);
         P3 =P3->suiv;
+    }
+
+    return l;
+}
+
+// Q4 Restaurer les pile
+void restauration(Liste P1){
+    while (P1 != NULL){
+        P2 = Empiler(P2,P1->value);
+        if(P1->suiv == NULL){
+            printf(" %d",P1->value);
+            printf("\n");
+        }
+
+        P1 = P1->suiv;
+    }
+    while (P2 != NULL){
+        //P1 = depiler(P2);
+        P1 = Empiler(P1,P2->value);
+        P2 = P2->suiv;
+    }
+}
+
+void supprimerlalternence(Liste l){
+    P2 = Empiler(P2,1);
+    while (l != NULL){
+        while (P2 != NULL){
+            if(P2->value == l->value){
+                break;
+            }
+            P2 = Empiler(P2,l->value);
+            P2 = P2->suiv;
+        }
+        l = l->suiv;
+    }
+
+    while (P2 != NULL){
+        printf("%d",P2->value);
+        P2 = P2->suiv;
+    }
+    printf("\n");
+}
+
+Liste elementmilieux(Liste l){
+    Liste temp = l;
+    Liste ml = NULL;
+    int count = 0;
+    int milieux;
+    while (temp != NULL){
+        count++;
+        temp = temp->suiv;
+    }
+
+    printf(" longeur du liste : %d \n",count);
+    if(count %2 == 0){
+        milieux = count / 2;
+    } else{
+        milieux = (count/2) +1;
+    }
+
+    printf(" milieux du longeur du liste : %d \n\n",milieux);
+
+    int x = 0;
+    while (l != NULL){
+        x++;
+        if(x == milieux){
+            ml = l;
+        }
+        l = l->suiv;
+    }
+    return ml;
+}
+Liste inverser(Liste l){
+    Liste temp = NULL;
+    Liste temp2 = NULL;
+    while (l != NULL){
+        temp = Empiler(temp,l->value);
+        l = depiler(l);
+    }
+    while (temp != NULL){
+        temp2 = Empiler(temp2,temp->value);
+        temp = depiler(temp);
+    }
+    while (temp2 != NULL){
+        l = Empiler(l,temp2->value);
+        temp2 = depiler(temp2);
     }
 
     return l;

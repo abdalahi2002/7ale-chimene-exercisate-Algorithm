@@ -73,6 +73,12 @@ build CMakeFiles/Testfilepile.dir/ListeDouble.c.obj: C_COMPILER__Testfilepile_un
   OBJECT_DIR = CMakeFiles\Testfilepile.dir
   OBJECT_FILE_DIR = CMakeFiles\Testfilepile.dir
 
+build CMakeFiles/Testfilepile.dir/TestTableau.c.obj: C_COMPILER__Testfilepile_unscanned_Debug C$:/Users/hp/CLionProjects/Testfilepile/TestTableau.c || cmake_object_order_depends_target_Testfilepile
+  DEP_FILE = CMakeFiles\Testfilepile.dir\TestTableau.c.obj.d
+  FLAGS = -g -std=gnu11 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\Testfilepile.dir
+  OBJECT_FILE_DIR = CMakeFiles\Testfilepile.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Testfilepile
@@ -81,7 +87,7 @@ build CMakeFiles/Testfilepile.dir/ListeDouble.c.obj: C_COMPILER__Testfilepile_un
 #############################################
 # Link the executable Testfilepile.exe
 
-build Testfilepile.exe: C_EXECUTABLE_LINKER__Testfilepile_Debug CMakeFiles/Testfilepile.dir/main.c.obj CMakeFiles/Testfilepile.dir/TestPile.c.obj CMakeFiles/Testfilepile.dir/TestFile.c.obj CMakeFiles/Testfilepile.dir/ListeDouble.c.obj
+build Testfilepile.exe: C_EXECUTABLE_LINKER__Testfilepile_Debug CMakeFiles/Testfilepile.dir/main.c.obj CMakeFiles/Testfilepile.dir/TestPile.c.obj CMakeFiles/Testfilepile.dir/TestFile.c.obj CMakeFiles/Testfilepile.dir/ListeDouble.c.obj CMakeFiles/Testfilepile.dir/TestTableau.c.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\Testfilepile.dir
